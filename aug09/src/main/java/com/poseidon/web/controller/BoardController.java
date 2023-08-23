@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.poseidon.web.dto.BoardDTO;
 import com.poseidon.web.service.BoardService;
 
@@ -36,8 +37,12 @@ public class BoardController {
 		//System.out.println(bno);
 		BoardDTO dto = boardService.detail(bno);
 		
-		JSONObject json = new JSONObject();
+		//이게 원래 json 쓰는 방법이고
+		//JSONObject json = new JSONObject();
 		
+		//앞으로 이거 쓸거임 내장되어 있는걸로 쓸거
+	
+		ObjectNode json = JsonNodeFactory.instance.objectNode();
 		json.put("content", dto.getBcontent());
 		json.put("uuid", dto.getUuid());
 		json.put("ip", dto.getBip());

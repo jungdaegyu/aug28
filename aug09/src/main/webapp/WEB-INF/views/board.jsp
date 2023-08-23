@@ -84,7 +84,7 @@
 					$(".detail-content").html(data.content);
 					$("#exampleModal").modal("show");
 				},
-				error:function(error){alert("에러가 발생했습니다. 다시 시도하지 마십시오.");}
+				error:function(error){alert("에러가 발생했습니다. 다시 시도하세요.");}
 			});
 		});
 	});

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +12,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +22,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.poseidon.web.service.AdminService;
 import com.poseidon.web.util.Util;
 
@@ -160,10 +167,40 @@ public class AdminController {
 		return "admin/mail";
 	}
 	
+	
 	@PostMapping("/mail")
-	public String mail2() {
+	public String mail(@RequestParam Map<String, Object> map) throws EmailException {
+		util.htmlMailSender(map);
+		
 		return "admin/mail";
 	}
+	
+	//에이작스은 리스폰스 바디 해야함 어드민 노티스jsp랑 연결
+	@ResponseBody
+	@PostMapping("/noticeDetail")
+	public String noticeDetail(@RequestParam("nno") int nno) {
+		
+		//jackson 사용해보기... 내장되어 있는 json 해보는거임 아닌건 보드컨트롤러에 있는데 바꿔놓음 주석 확인하면 굿
+		
+		ObjectNode json = JsonNodeFactory.instance.objectNode();
+		//json.put("name", "홍길동");
+		//해야할 일
+		/* 1. 데이터 베이스에 물어보기 -> nno로 -> 본문내용 가져오기
+		 * 2. jackson에 담아주세요.
+		 */
+		json.put("content", adminService.noticeDetail(nno));
+		return json.toString();		
+	}
+	
+	@ResponseBody
+	@PostMapping("/noticeHide")
+	public String noticeHide(@RequestParam("nno") int nno) {
+	int result= adminService.noticeHide(nno);
+		ObjectNode json = JsonNodeFactory.instance.objectNode();
+		json.put("result", result);
+		return json.toString();
+	}
+	
 	
 }
 
