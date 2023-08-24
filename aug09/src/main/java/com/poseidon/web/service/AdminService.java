@@ -37,6 +37,12 @@ public class AdminService {
 		
 	}
 
+	public List<Map<String, Object>> setupBoardList() {
+		return adminDAO.setupBoardList();
+	}
+
+
+
 	
 
 

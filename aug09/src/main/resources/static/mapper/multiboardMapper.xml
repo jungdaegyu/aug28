@@ -3,10 +3,15 @@
 <mapper namespace="com.poseidon.web.dao.MultiBoardDAO">
 
 	<select id="list" parameterType="Integer" resultType="Map">
-		SELECT mb_no, mb_title, mb_date, mb_read, m_id, m_name, mb_board
-		FROM mbboardview 
-		WHERE mb_board=#{board}
-		LIMIT 0, 10
+			SELECT @ROWNUM:=@ROWNUM+1 AS rowNum,
+	m.mb_no, m.mb_title, m.mb_date, m.mb_read, m.m_name, m.mb_board, 
+	(SELECT COUNT(*) FROM mbboardview WHERE mb_board = #{board}) AS COUNT
+	FROM mbboardview m, (SELECT @ROWNUM:=0) AS R
+	WHERE mb_board = #{board}
+	ORDER BY rowNum DESC
+	LIMIT 0, 10
+			
+		
 	</select>
 
 	<insert id="mbWrite" parameterType="Map">
@@ -22,6 +27,9 @@
 		FROM mbboardview 
 		WHERE mb_no=#{mbno}
 	</select>
-	
+		
+	<select id="boardlist" resultType="Map">
+		SELECT * FROM setupboard
+	</select>	
 
 </mapper>

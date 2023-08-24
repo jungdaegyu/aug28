@@ -26,7 +26,9 @@ public class MultiBoardController {
 																					Model model) {
 		
 		List<Map<String, Object>> list = mbService.list(board);
+		List<Map<String, Object>> boardlist = mbService.boardlist();
 		model.addAttribute("list", list);
+		model.addAttribute("boardlist", boardlist);
 		//System.out.println(list);
 		return "multiboard";
 	}
@@ -50,7 +52,7 @@ public class MultiBoardController {
 		if(session.getAttribute("mid") != null) {
 			map.put("mid", session.getAttribute("mid"));
 			mbService.mbWrite(map);//이번에는 selectKey라는 기법입니다.
-			return "redirect:/mbdetail?mbno="+map.get("mb_no");
+			return "redirect:/mbdetail?board="+map.get("board")+"&mbno="+map.get("mb_no");
 		} else {
 			return "redirect:/login.sik?error=login";
 		}
