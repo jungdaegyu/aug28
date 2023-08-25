@@ -8,13 +8,29 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <link rel="stylesheet" href="../css/multiBoard.css">
 </head>
+<style type="text/css">
+.input-form{
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 90%;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px;
+	background-color: gray;
+}
+.input-form-input{
+	width: 25%;
+	border: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+</style>
 <body>
 	<div class="masthead">
 		<div class="container">
 			<div class="article">			
-			
-			
-			
+
 				<h1>멀티보드입니다.</h1>
 			
 			<div class="div-table">
@@ -35,8 +51,16 @@
                		</div>           
                		</c:forEach>
               </div>  
+            <!--새로 입력하는 form 태그 -->
+          <div class="input-form">
+            <form action="./multiBoard" method="post">
+           	    <input type="number" name="cateNum" required="required" placeholder="게시판 번호 입력">
+            	<input type="text" name="name" required="required" placeholder="게시판 이름 입력">
+            	<input type="text" name="comment" required="required" placeholder="참고를 남겨주세요">
+            	<button type="submit">저장할게</button>
+            </form>
+          </div>
             </div>
-	
 			</div>
 		</div>
 	

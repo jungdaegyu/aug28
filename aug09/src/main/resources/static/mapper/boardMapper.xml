@@ -14,9 +14,6 @@
 		) as ff join members m on ff.m_no = m.m_no
 		order by bno desc
 		LIMIT 0, 10
-
-
-
 	</select>
 
 	<select id="detail" parameterType="Integer"	resultType="BoardDTO">

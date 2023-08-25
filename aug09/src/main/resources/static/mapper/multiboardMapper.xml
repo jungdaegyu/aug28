@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.poseidon.web.dao.MultiBoardDAO">
-
+	
 	<select id="list" parameterType="Integer" resultType="Map">
 			SELECT @ROWNUM:=@ROWNUM+1 AS rowNum,
 	m.mb_no, m.mb_title, m.mb_date, m.mb_read, m.m_name, m.mb_board, 

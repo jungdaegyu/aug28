@@ -10,9 +10,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 @Mapper
 public interface AdminDAO {
 
-
-	
-
 	Map<String, Object> adminLogin(Map<String, Object> map);
 
 	List<Map<String, Object>> list();
@@ -23,8 +20,18 @@ public interface AdminDAO {
 
 	int noticeHide(int nno);
 
-
 	List<Map<String, Object>> setupBoardList();
+
+	int multiBoardInsert(Map<String, String> map);
+
+	List<Map<String, Object>> memberList();
+
+	int gradeChange(Map<String, Object> map);
+
+
+	
+
+
 
 
 
