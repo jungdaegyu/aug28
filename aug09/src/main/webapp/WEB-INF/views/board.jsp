@@ -93,7 +93,6 @@
 	
 	//function detail
 	function detail(bno){
-		//alert(bno + "번을 클릭했습니다.");
 		$.ajax({
 			url:"./detail2",
 			type: "post",

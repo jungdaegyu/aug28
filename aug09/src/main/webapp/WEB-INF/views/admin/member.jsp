@@ -44,6 +44,7 @@
 function gradeCh(mno, name, value){ 
 	if(confirm(name + "님의 등급을 변경하시겠습니까?")){
 		location.href = "./gradeChange?mno="+mno+"&grade="+value;
+		//꼭 가져가야 할 값이기 때문에 mno grade 이렇게 가져가는거임
 	}
 }
 </script>

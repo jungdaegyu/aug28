@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.EmailException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -235,22 +236,47 @@ public class AdminController {
 		return "redirect:/admin/member";
 	}
 
-
+	
+	@GetMapping("/post")
+	public String post(Model model, 
+			@RequestParam(name="cate", required = false, defaultValue = "0") int cate,
+			@RequestParam Map<String, Object> map){ //두개를 써줬기 때문에 카테는 위에 나머지는 다 맵
+		
+		
+		//게시판 번호가 들어올 수 있습니다. 추후 처리
+		//게시판 관리번호를 다 불러옵니다.
+		
+		if (!map.containsKey("cate") || map.get("cate").equals(null) || map.get("cate").equals("")) {
+			map.put("cate", 0);		System.out.println("cate : " + cate);
+			System.out.println("검색 : " + map);
+		}
+		System.out.println("cate : " + cate);
+		System.out.println("검색 : " + map);
+		
+		
+		List<Map<String, Object>> boardList = adminService.boardList();
+		model.addAttribute("boardList", boardList);
+		//게시글을 다 불러옵니다.
+		List<Map<String, Object>> list = adminService.post(map);
+		model.addAttribute("list", list);
+		System.out.println(list.get(0).get("count"));
+		return "/admin/post";		
+	}
+	
+	@ResponseBody
+	@PostMapping("/content")
+	public String content(@RequestParam("mbno") int mbno) {
+	
+		ObjectNode json = JsonNodeFactory.instance.objectNode();
+		String content= adminService.content(mbno);
+		
+		json.put("content", content);
+		System.out.println(content +"이거다");
+		return json.toString();
+	
+	}
+	
+	
 
 }
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
 
